@@ -14,7 +14,8 @@
 ###SnakeClient-06版本：
 	添加键盘监听器类KeyMonitor，
 	添加键盘监听器，针对不同的键改变方块的位置，与重画线程结合产生不同方向运动。 
-	建立Snake类，为Snake类添加成员变量x y，添加draw方法，                        使Snake类独立控制自己的画法，添加Snake类处理按键的方法，                      
+	建立Snake类，为Snake类添加成员变量x y，添加draw方法，
+	使Snake类独立控制自己的画法，添加Snake类处理按键的方法，                      
 	根据Snake类修改SnakeClient类。
 
 ###SnakeClient-05版本：
