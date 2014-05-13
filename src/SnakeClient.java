@@ -3,6 +3,13 @@ import java.awt.event.*;
 
 public class SnakeClient extends Frame {
 	
+	public void paint(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.RED);
+		g.fillRect(50, 50, 30, 30);
+		g.setColor(c);
+	}
+
 	public void lauchFrame() {
 		this.setLocation(400, 300);
 		this.setSize(800, 600);
@@ -13,6 +20,7 @@ public class SnakeClient extends Frame {
 			}
 		});
 		this.setResizable(false);
+		this.setBackground(Color.GREEN);
 		setVisible(true);
 	}
 
