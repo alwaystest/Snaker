@@ -1,37 +1,49 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class Snake {
-	int x, y;
-
-	public Snake(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
 	
-	public void draw(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-		g.fillRect(x, y,30, 30);
-		g.setColor(c);
+	public LinkedList<Node> body;
+	
+	public int dir=1;//dir 1=up 2=right 3=down 4=left
+
+	public Snake(){
+		body=new LinkedList<Node>();
+		body.add(new Node(100,100));
+		body.add(new Node(100,110));
+		body.add(new Node(100,120));
+		body.add(new Node(100,130));
+		body.add(new Node(100,140));
+		body.add(new Node(100,150));
+		
 	}
 	
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch(key) {
 		case KeyEvent.VK_LEFT :
-			x -= 5;
+			dir=4;
 			break;
 		case KeyEvent.VK_UP :
-			y -= 5;
+			dir=1;
 			break;
 		case KeyEvent.VK_RIGHT :
-			x += 5;
+			dir=2;
 			break;
 		case KeyEvent.VK_DOWN :
-			y += 5;
+			dir=3;
 			break;
 		}
 	}
 }
+class Node{
+	public int x,y;
+	public Node(int x,int y){
+		this.x=x;
+		this.y=y;
+	}
+	
+	
+		}

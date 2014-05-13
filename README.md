@@ -11,6 +11,11 @@
 ##本游戏（贪吃蛇）基于JAVA开发。
 
 ***
+###Snaker -07:
+	
+	LinkedList<Node>参考  泛型类http://bbs.bccn.net/thread-56010-1-1.html  去掉“<Node>”会报warning 对addFirst()的调用未经过检查
+	蛇身体用linkedlist存储，将蛇分为一个一个的方块，每个方块有位置属性，repaint的时候根据位置画出方块，组成蛇。
+	
 ###SnakeClient-06版本：
 	添加键盘监听器类KeyMonitor，
 	添加键盘监听器，针对不同的键改变方块的位置，与重画线程结合产生不同方向运动。 
