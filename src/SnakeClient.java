@@ -5,17 +5,12 @@ public class SnakeClient extends Frame {
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 	
-	int x = 50, y = 50;
+	Snake mySnake = new Snake(50, 50);
 	
 	Image offScreenImage = null;
 	
 	public void paint(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-		g.fillRect(x, y, 30, 30);
-		g.setColor(c);
-		
-		y += 5;
+		mySnake.draw(g);
 	}
 	
 	public void update(Graphics g) {
@@ -42,6 +37,9 @@ public class SnakeClient extends Frame {
 		});
 		this.setResizable(false);
 		this.setBackground(Color.GREEN);
+		
+		this.addKeyListener(new KeyMonitor());
+		
 		setVisible(true);
 		
 		new Thread(new PaintThread()).start();
@@ -65,5 +63,25 @@ public class SnakeClient extends Frame {
 			}
 		}
 	}
+	
+	private class KeyMonitor extends KeyAdapter {
 
+		public void keyPressed(KeyEvent e) {
+			mySnake.keyPressed(e);
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
