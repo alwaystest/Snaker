@@ -12,6 +12,7 @@
 
 ***
 ###Snaker -07:
+- 0516 感觉模仿蛇的动作太难，考虑先完成基本行为，已完成吃食物长大 实现于雏形分支的最新版本，不要下载错
 - LinkedList<Node>参考  泛型类http://bbs.bccn.net/thread-56010-1-1.html
 - 去掉“<Node>”会报warning 对addFirst()的调用未经过检查
 - 蛇身体用linkedlist存储，将蛇分为一个一个的方块，每个方块有位置属性，repaint的时候根据位置画出方块，组成蛇。
