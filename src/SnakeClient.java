@@ -14,13 +14,6 @@ public class SnakeClient extends Frame {//主窗口
 	
 	public void drawSnake(Graphics g) {//包含蛇行进方向的判断，向前进方向加一个Node表示蛇头到此处，同时移除最后一个Node表示蛇尾离开此处
 		LinkedList<Node> body=mySnake.body;//将蛇身传递出来操作
-		if(mySnake.size%2==0){
-		if(z==0)//配合drawNode的变形
-			z++;
-		else
-			z--;
-		}
-		cturn=mySnake.turn;
 		Node head=(Node) body.getFirst();//以目前位置为基准，判断下一步Node的位置
 		Node end=(Node) body.getLast();
 		int x = head.x,

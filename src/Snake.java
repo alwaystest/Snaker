@@ -45,12 +45,12 @@ public class Snake {
 			break;
 		}
 }
+}
 class Node{//组成蛇的基础部分
 	public int x,y;
 	public Node(int x,int y){
 		this.x=x;
 		this.y=y;
 	}
-	
-	
-		}
+}
+
