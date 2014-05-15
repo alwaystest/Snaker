@@ -1,4 +1,4 @@
-﻿
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -17,8 +17,11 @@ public class Snake {
 		body.add(new Node(100,130));
 		body.add(new Node(100,140));
 		body.add(new Node(100,150));
-		
+	//	body.add(new Node(100,160));
+		size=body.size();
 	}
+	
+	public int size;//链表获取size需要遍历，提取出来方便操作
 	
 	public void keyPressed(KeyEvent e) {//键盘监听，控制蛇的行进方向
 		int key = e.getKeyCode();
