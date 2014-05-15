@@ -8,6 +8,8 @@ public class SnakeClient extends Frame {//主窗口
 	public static int z=0;
 	public static int NodeWidth=10;//步进 node宽度
 	public static int[][] check=new int[GAME_WIDTH][GAME_HEIGHT];
+	public static int cturn;
+	public static boolean runstate=true;
 	public Snake mySnake = new Snake();
 	
 	public Image offScreenImage = null;
@@ -20,13 +22,13 @@ public class SnakeClient extends Frame {//主窗口
 		else
 			z--;
 		}
+		cturn=mySnake.turn;
 		Node head=(Node) body.getFirst();//以目前位置为基准，判断下一步Node的位置
 		Node end=(Node) body.getLast();
 		int x = head.x,
 			y = head.y,
 			x1=end.x,
 			y1=end.y;
-
 		switch(mySnake.dir){//已提取步进值   增加细节，使运动更像蛇 会导致识别碰撞出现问题
 			case 1:
 				y-=NodeWidth;
@@ -88,20 +90,54 @@ public class SnakeClient extends Frame {//主窗口
 
 		ListIterator list=body.listIterator(0);//ListIterator是对ListLink的迭代器，详见api文档的Iterator，类似数组的指针，这个可以后移next()，也可以前移previous()，直接用Iterator也可以，但不能前移
 		while(list.hasNext()){//将蛇身画完为止 不进行强制转换会报错
-			
 			Node paint=(Node) list.next();
 			drawNode(g,paint);
 		}
+			mySnake.turn++;
 	}
 
 	public void drawNode(Graphics gg,Node n){
-		
+		//System.out.println(cturn);
 		gg.setColor(Color.RED);
-		/*if(mySnake.turn<mySnake.size){
-			int olddir=mySnake.olddir;
-			int turn=mySnake.turn;
-		*///待完成，纠正蛇拐弯体位不正
-		if (z==0&&mySnake.dir==1)
+		if(cturn>0){
+			if(z==0)
+				gg.fillRect(n.x,n.y,NodeWidth,NodeWidth);
+			if(z==1){
+				switch(mySnake.dir){
+					case 1:
+						gg.fillRect(n.x-1,n.y,NodeWidth,NodeWidth);
+						break;
+					case 2:
+						gg.fillRect(n.x,n.y-1,NodeWidth,NodeWidth);
+						break;
+					case 3:
+						gg.fillRect(n.x+1,n.y,NodeWidth,NodeWidth);
+						break;
+					case 4:
+						gg.fillRect(n.x,n.y+1,NodeWidth,NodeWidth);
+				}
+			}
+		}
+		if(cturn<=0){
+			if(z==0)
+				gg.fillRect(n.x,n.y,NodeWidth,NodeWidth);
+			if(z==1){
+				switch(mySnake.olddir){
+					case 1:
+						gg.fillRect(n.x-1,n.y,NodeWidth,NodeWidth);
+						break;
+					case 2:
+						gg.fillRect(n.x,n.y-1,NodeWidth,NodeWidth);
+						break;
+					case 3:
+						gg.fillRect(n.x+1,n.y,NodeWidth,NodeWidth);
+						break;
+					case 4:
+						gg.fillRect(n.x,n.y+1,NodeWidth,NodeWidth);
+				}
+			}
+		}
+		/*if (z==0&&mySnake.dir==1)   被上面整合
 		gg.fillRect(n.x,n.y,NodeWidth,NodeWidth);//已提取宽度
 		if (z==1&&mySnake.dir==1)
 		gg.fillRect(n.x-1,n.y,NodeWidth,NodeWidth);
@@ -116,12 +152,14 @@ public class SnakeClient extends Frame {//主窗口
 		if (z==0&&mySnake.dir==4)
 		gg.fillRect(n.x,n.y,NodeWidth,NodeWidth);
 		if (z==1&&mySnake.dir==4)
-		gg.fillRect(n.x,n.y+1,NodeWidth,NodeWidth);
+		gg.fillRect(n.x,n.y+1,NodeWidth,NodeWidth);*/
 		if(z==0)
 			z++;
 		else 
 			z--;
+		cturn--;
 	}
+	
 	
 	public void update(Graphics g) {//画图，双缓冲，防止闪烁
 		if(offScreenImage == null) {
@@ -163,10 +201,10 @@ public class SnakeClient extends Frame {//主窗口
 	private class PaintThread implements Runnable {
 
 		public void run() {
-			while(true) {
+			while(runstate) {
 				repaint();
 				try {
-					Thread.sleep(500);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -177,6 +215,9 @@ public class SnakeClient extends Frame {//主窗口
 	private class KeyMonitor extends KeyAdapter {//将对键盘的操作传到Snake的监听器中
 
 		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+			if(key==KeyEvent.VK_P)
+				runstate=!runstate;
 			mySnake.keyPressed(e);
 		}
 		
