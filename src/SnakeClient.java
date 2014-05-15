@@ -9,6 +9,7 @@ public class SnakeClient extends Frame {//主窗口
 	public static int[][] check=new int[GAME_WIDTH][GAME_HEIGHT];
 	public static boolean runstate=true;
 	public Snake mySnake = new Snake();
+	public food f= new food(GAME_WIDTH,GAME_HEIGHT);
 	
 	Image offScreenImage = null;
 	
@@ -72,6 +73,15 @@ public class SnakeClient extends Frame {//主窗口
 		else{
 			if(check[x][y]==1)
 				System.out.println("Failed");
+			else if(check[x][y]==2){
+				body.addFirst(new Node(f.x,f.y));
+				check[f.x][f.y]=1;
+				mySnake.size++;
+				while(check[f.x][f.y]==1){
+				f=new food(GAME_WIDTH,GAME_HEIGHT);
+				}
+			}
+
 			Node nnode=new Node(x,y);
 			body.addFirst(nnode);
 			check[x][y]=1;
@@ -87,9 +97,16 @@ public class SnakeClient extends Frame {//主窗口
 	}
 
 	public void drawNode(Graphics gg,Node n){
-		gg.setColor(Color.RED);
+				gg.setColor(Color.RED);
 				gg.fillRect(n.x,n.y,NodeWidth,NodeWidth);
 		}
+
+
+	public void drawFood(Graphics gg)
+	{
+		gg.setColor(Color.blue);
+		gg.fillRect(f.x,f.y,NodeWidth,NodeWidth);
+	}
 	
 	
 	public void update(Graphics g) {//画图，双缓冲，防止闪烁
@@ -102,6 +119,7 @@ public class SnakeClient extends Frame {//主窗口
 		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		gOffScreen.setColor(c);
 		drawSnake(gOffScreen);
+		drawFood(gOffScreen);
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 

@@ -12,19 +12,24 @@ public class Snake {
 
 	public Snake(){
 		body=new LinkedList<Node>();
-		body.add(new Node(100,100));
-		body.add(new Node(100,110));
-		body.add(new Node(100,120));
-		body.add(new Node(100,130));
-		body.add(new Node(100,140));
-		body.add(new Node(100,150));
-		body.add(new Node(100,160));
-		body.add(new Node(100,170));
-		body.add(new Node(100,180));
-		body.add(new Node(100,190));
-		body.add(new Node(100,200));
-		body.add(new Node(100,210));
+		addHead(new Node(100,100));
+		addHead(new Node(100,110));
+		//addHead(new Node(100,120));
+		//addHead(new Node(100,130));
+		//addHead(new Node(100,140));
+		//addHead(new Node(100,150));
+		//addHead(new Node(100,160));
+		//addHead(new Node(100,170));
+		//addHead(new Node(100,180));
+		//addHead(new Node(100,190));
+		//addHead(new Node(100,200));
+		//addHead(new Node(100,210));
 		size=body.size();
+	}
+
+	public void addHead(Node n){
+		body.add(n);
+		SnakeClient.check[n.x][n.y]=1;
 	}
 	
 	public void keyPressed(KeyEvent e) {//键盘监听，控制蛇的行进方向
