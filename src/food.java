@@ -5,9 +5,11 @@ import java.util.*;
 public class food {
 	public int x,y;	
 	public food(){
-		Random a = new Random();
-		x=a.nextInt(800);
-		y=a.nextInt(600);
+		//Random a = new Random();
+		//x=a.nextInt(800);
+		//y=a.nextInt(600);
+		x=0;
+		y=20;
 		SnakeClient.check[x][y]=2;
 		//System.out.println(x+"  "+y);
 		
@@ -17,7 +19,7 @@ public class food {
 		x=10*a.nextInt(w/10);//使食物落到规定点上
 		y=10*a.nextInt(h/10);
 		SnakeClient.check[x][y]=2;
-		//System.out.println(x+"  "+y);
+		System.out.println(x+"  "+y);
 		
 	}
 

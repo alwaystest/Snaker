@@ -10,6 +10,7 @@ public class SnakeClient extends Frame {//主窗口
 	public static boolean runstate=true;
 	public Snake mySnake = new Snake();
 	public food f= new food(GAME_WIDTH,GAME_HEIGHT);
+	//public food f= new food();  测试用例
 	
 	Image offScreenImage = null;
 	
@@ -67,7 +68,7 @@ public class SnakeClient extends Frame {//主窗口
 				}*/
 				break;
 		}
-		if (x<=0||x>=GAME_WIDTH||y<=0||y>=GAME_HEIGHT){
+		if (x<0||x>=GAME_WIDTH||y<=10||y>=GAME_HEIGHT){
 			Thread.yield();
 		}
 		else{
@@ -77,7 +78,7 @@ public class SnakeClient extends Frame {//主窗口
 				body.addFirst(new Node(f.x,f.y));
 				check[f.x][f.y]=1;
 				mySnake.size++;
-				while(check[f.x][f.y]==1){
+				while(check[f.x][f.y]==1||f.y<30){//修正食物落到看不见的位置
 				f=new food(GAME_WIDTH,GAME_HEIGHT);
 				}
 			}
@@ -153,7 +154,7 @@ public class SnakeClient extends Frame {//主窗口
 			while(runstate) {
 				repaint();
 				try {
-					Thread.sleep(200);
+					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
