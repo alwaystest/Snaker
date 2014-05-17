@@ -9,8 +9,8 @@ public class SnakeClient extends Frame {//主窗口
 	public static int[][] check=new int[GAME_WIDTH][GAME_HEIGHT];
 	public static boolean runstate=true;
 	public Snake mySnake = new Snake();
-	public food f= new food(GAME_WIDTH,GAME_HEIGHT);
-	//public food f= new food();  测试用例
+	//public food f= new food(GAME_WIDTH,GAME_HEIGHT);
+	public food f= new food();  //测试用例
 	
 	Image offScreenImage = null;
 	
@@ -80,6 +80,8 @@ public class SnakeClient extends Frame {//主窗口
 				mySnake.size++;
 				while(check[f.x][f.y]==1||f.y<30){//修正食物落到看不见的位置
 				f=new food(GAME_WIDTH,GAME_HEIGHT);
+				//f=new food(GAME_WIDTH,40);
+				//System.out.println(f.x+" aaa "+f.y);
 				}
 			}
 
