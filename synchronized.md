@@ -10,6 +10,7 @@ synchronized(Obj) Obj是指Object对象,java.lang.Object是一个超类,网上�
 synchronized(obj)用于获取obj的锁,只有获取到目标的锁,才能对目标所在的线程执行wait(),notify()
 
 要唤醒wait()的线程,用到notify(),要求两者之前获取锁的对象相同
+
 eg:
 
     Object ob=new Object();
