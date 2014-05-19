@@ -146,6 +146,15 @@ public class SnakeClient extends Frame {//主窗口
 		Thread p=new Thread(new PaintThread());
 		p.start();
 	}
+	
+	boolean restart(){
+		check=new int[GAME_WIDTH][GAME_HEIGHT];
+		mySnake = new Snake();
+		f= new food();
+		System.gc();//显式调用垃圾回收器(实际上只是提醒JVM该回收了,具体回收不回收由JVM定),防止重开太多次之前的对象没有回收,造成内存溢出什么的
+		System.out.println("Restart");
+		return true;
+	}
 
 	boolean ChangeState(int key){
 		runstate=!runstate;
@@ -204,6 +213,10 @@ public class SnakeClient extends Frame {//主窗口
 			int key = e.getKeyCode();
 			if(key==KeyEvent.VK_P){
 				ChangeState(key);
+				//runstate=!runstate;
+			}
+			if(key==KeyEvent.VK_S&&(e.isControlDown())){
+				restart();
 				//runstate=!runstate;
 			}
 			mySnake.keyPressed(e);
