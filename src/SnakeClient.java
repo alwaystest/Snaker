@@ -11,6 +11,7 @@ public class SnakeClient extends Frame {//主窗口
 	public Snake mySnake = new Snake();
 	//public food f= new food(GAME_WIDTH,GAME_HEIGHT);
 	public food f= new food();  //测试用例
+	Object ob=new Object();//添加监视器 线程的wait notify需要在同一个监视器才能执行,synchronized run无法直接在changestate中找出之前的监视器,把监视器提取出来未免就可以获取到了
 	
 	Image offScreenImage = null;
 	
@@ -92,7 +93,7 @@ public class SnakeClient extends Frame {//主窗口
 			check[x1][y1]=0;
 		}
 
-		ListIterator list=body.listIterator(0);//ListIterator是对ListLink的迭代器，详见api文档的Iterator，类似数组的指针，这个可以后移next()，也可以前移previous()，直接用Iterator也可以，但不能前移
+		ListIterator<Node> list=body.listIterator(0);//ListIterator是对ListLink的迭代器，详见api文档的Iterator，类似数组的指针，这个可以后移next()，也可以前移previous()，直接用Iterator也可以，但不能前移
 		while(list.hasNext()){//将蛇身画完为止 不进行强制转换会报错
 			Node paint=(Node) list.next();
 			drawNode(g,paint);
@@ -142,7 +143,21 @@ public class SnakeClient extends Frame {//主窗口
 		
 		setVisible(true);
 		
-		new Thread(new PaintThread()).start();
+		Thread p=new Thread(new PaintThread());
+		p.start();
+	}
+
+	boolean ChangeState(int key){
+		runstate=!runstate;
+		synchronized(ob){
+		if(runstate){
+			
+			//System.out.println(this.getClass());
+			System.out.println(runstate);
+			ob.notify();
+		}
+		}
+		return runstate;
 	}
 
 	public static void main(String[] args) {
@@ -152,8 +167,23 @@ public class SnakeClient extends Frame {//主窗口
 	
 	private class PaintThread implements Runnable {
 
-		public void run() {
-			while(runstate) {
+		public  void run() {
+			while(true) {
+				synchronized(this){
+					
+				if (!runstate){
+					try{
+						ob=this;//将监视器传出去 等待notify
+						//System.out.println("wait");
+						//System.out.println(this.getClass());
+						this.wait();
+					}
+					catch(InterruptedException ex){
+						ex.printStackTrace();
+					}
+				}
+				}
+				
 				repaint();
 				try {
 					Thread.sleep(50);
@@ -162,14 +192,20 @@ public class SnakeClient extends Frame {//主窗口
 				}
 			}
 		}
+		
+	/*	public synchronized void wakeup(){
+			notify();	
+		}//尝试通过调用相同线程下的synchronized获取同一监视器  失败*/
 	}
 	
 	private class KeyMonitor extends KeyAdapter {//将对键盘的操作传到Snake的监听器中
 
 		public void keyPressed(KeyEvent e) {
 			int key = e.getKeyCode();
-			if(key==KeyEvent.VK_P)
-				runstate=!runstate;
+			if(key==KeyEvent.VK_P){
+				ChangeState(key);
+				//runstate=!runstate;
+			}
 			mySnake.keyPressed(e);
 		}
 		
