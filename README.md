@@ -15,12 +15,17 @@
     记分板加入 结合数据库
 
 ***
+###Snaker -08:
+
+-0519 完成游戏暂停功能,计分板,界面按钮正在开发,下一步做重新开始的函数
+做线程暂停耗了好大时间,写出[我的理解](https://github.com/alwaystest/Snaker/blob/%E9%9B%8F%E5%BD%A2/synchronized.md),供以后回忆或者学习代码,如有错误,请指正.
+
 ###Snaker -07:
 
 - 0517 修正蛇与食物的位置,待细化
 
 - 0516 感觉模仿蛇的动作太难，考虑先完成基本行为，已完成吃食物长大 实现于雏形分支的最新版本，不要下载错
-- LinkedList<Node>参考  泛型类http://bbs.bccn.net/thread-56010-1-1.html
+- LinkedList<Node>参考  [泛型类](http://bbs.bccn.net/thread-56010-1-1.html)
 - 去掉“<Node>”会报warning 对addFirst()的调用未经过检查
 - 蛇身体用linkedlist存储，将蛇分为一个一个的方块，每个方块有位置属性，repaint的时候根据位置画出方块，组成蛇。
 - linkedlist相当于数据结构的链表，容易增加和删除
