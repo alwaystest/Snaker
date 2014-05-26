@@ -12,7 +12,7 @@ public class SnakeClient extends Frame {//主窗口
 	//public food f= new food(GAME_WIDTH,GAME_HEIGHT);
 	public food f= new food();  //测试用例
 	Object ob=new Object();//添加监视器 线程的wait notify需要在同一个监视器才能执行,synchronized run无法直接在changestate中找出之前的监视器,把监视器提取出来未免就可以获取到了
-	
+	public sqlite sql=new sqlite();//未加入connection.close()
 	Image offScreenImage = null;
 	
 	public void drawSnake(Graphics g) {//包含蛇行进方向的判断，向前进方向加一个Node表示蛇头到此处，同时移除最后一个Node表示蛇尾离开此处
@@ -124,6 +124,7 @@ public class SnakeClient extends Frame {//主窗口
 		gOffScreen.setColor(c);
 		drawSnake(gOffScreen);
 		drawFood(gOffScreen);
+		gOffScreen.drawString(Integer.toString(mySnake.size),10,40);
 		g.drawImage(offScreenImage, 0, 0, null);
 	}
 
@@ -148,9 +149,12 @@ public class SnakeClient extends Frame {//主窗口
 	}
 	
 	boolean restart(){
+		sql.in(mySnake.size);
 		check=new int[GAME_WIDTH][GAME_HEIGHT];
 		mySnake = new Snake();
 		f= new food();
+		
+		sql.out();
 		System.gc();//显式调用垃圾回收器(实际上只是提醒JVM该回收了,具体回收不回收由JVM定),防止重开太多次之前的对象没有回收,造成内存溢出什么的
 		System.out.println("Restart");
 		return true;
