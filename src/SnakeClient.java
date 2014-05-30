@@ -13,6 +13,9 @@ public class SnakeClient extends Frame {//主窗口
 	//Frame gframe;//不可以声明，否则不能画出蛇
 	public static final int GAME_WIDTH = 800;//窗体的大小包括为边框指定的所有区域
 	public static final int GAME_HEIGHT = 600;
+	public static final int IMG_WIDTH=GAME_WIDTH-8;
+	public static final int IMG_HEIGHT=GAME_HEIGHT-30;
+	
 	public static int NodeWidth=10;//步进 node宽度
 	public static int[][] check=new int[GAME_WIDTH][GAME_HEIGHT];
 	public static boolean runstate=true;
@@ -31,17 +34,17 @@ public class SnakeClient extends Frame {//主窗口
 
 	public void update(Graphics g) {//画图，双缓冲，防止闪烁
 		if(offScreenImage == null) {
-			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+			offScreenImage = this.createImage(IMG_WIDTH, IMG_HEIGHT);
 		}
 		Graphics gOffScreen = offScreenImage.getGraphics();
 		Color c = gOffScreen.getColor();
-		gOffScreen.setColor(Color.GREEN);
-		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		gOffScreen.setColor(Color.gray);
+		gOffScreen.fillRect(0, 0, IMG_WIDTH, IMG_HEIGHT);
 		gOffScreen.setColor(c);
 		drawSnake(gOffScreen);
 		drawFood(gOffScreen);
 		gOffScreen.drawString(Integer.toString(mySnake.size),10,40);
-		g.drawImage(offScreenImage, 0, 0, null);
+		g.drawImage(offScreenImage, 4, 27, null);//设置偏移，防止边框遮盖
 	}
 
 	private class PaintThread implements Runnable {
@@ -148,7 +151,8 @@ public class SnakeClient extends Frame {//主窗口
 				}*/
 				break;
 		}
-		if (x<0||x>=GAME_WIDTH||y<=10||y>=GAME_HEIGHT){
+		if (x<0||x>=IMG_WIDTH-NodeWidth||y<0||y>=IMG_HEIGHT){
+			//System.out.println(x+"  "+y);
 			Thread.yield();
 		}
 		else{
@@ -158,8 +162,8 @@ public class SnakeClient extends Frame {//主窗口
 				body.addFirst(new Node(f.x,f.y));
 				check[f.x][f.y]=1;
 				mySnake.size++;
-				while(check[f.x][f.y]==1||f.y<30){//修正食物落到看不见的位置
-				f=new food(GAME_WIDTH,GAME_HEIGHT);
+				while(check[f.x][f.y]==1){
+				f=new food(IMG_WIDTH,IMG_HEIGHT);
 				//f=new food(GAME_WIDTH,40);
 				//System.out.println(f.x+" aaa "+f.y);
 				}
@@ -237,7 +241,7 @@ public class SnakeClient extends Frame {//主窗口
 	public void gameFace() {//对窗口的一系列设置
 		
 		this.setLocation(300, 100);
-		this.setSize(GAME_WIDTH, GAME_HEIGHT);
+		this.setSize(GAME_WIDTH, GAME_HEIGHT);//加大窗体，减小边框对界面的遮盖
 		this.setTitle("Snaker");
 		this.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
