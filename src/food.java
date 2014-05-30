@@ -8,8 +8,8 @@ public class food {
 		//Random a = new Random();
 		//x=a.nextInt(800);
 		//y=a.nextInt(600);
-		x=230;
-		y=20;
+		x=0;
+		y=0;
 		SnakeClient.check[x][y]=2;
 		//System.out.println(x+"  "+y);
 		
