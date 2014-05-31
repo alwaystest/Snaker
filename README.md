@@ -22,14 +22,19 @@
 1.抽取共性，将imgpanel类提取为一个 
 2.修改add组件的位置，使其更合理
 3.提取键盘监听器，放到同一个地方，提高代码易读性。
-- 0527 记录:不能随便修改组件的paint() 会导致组件被覆盖 向窗口添加背景图片的时候可以重写paintComponent(Graphics g) 不会覆盖组件
+- 0527 
+记录:不能随便修改组件的paint() 会导致组件被覆盖 向窗口添加背景图片的时候可以重写paintComponent(Graphics g) 不会覆盖组件
 paint方法实际上将绘制工作委托给三个受保护的方法：paintComponent、paintBorder 和 paintChildren。按列出的顺序调用这些方法，以确保子组件出现在组件本身的顶部
-- 0526 完成数据库记分板。[理解java数据库的使用](http://www.cnblogs.com/hongten/archive/2011/03/29/1998311.html)。采用sqlite数据库 sqlite不支持if else 语句，数据库中time用来区分数据，删除的时候不会把分值相同的数据删掉，
+- 0526
+完成数据库记分板。[理解java数据库的使用](http://www.cnblogs.com/hongten/archive/2011/03/29/1998311.html)。采用sqlite数据库 sqlite不支持if else 语句，数据库中time用来区分数据，删除的时候不会把分值相同的数据删掉，
   待完善方法：sqlite.in() 的时候判断分数是否小于最小值，不会出现相同分数多个记录
-- 0524 界面完善基本完成，细节待修改
-- 0519 完成重新开始功能,System.gc();通知JVM回收内存,具体回收由JVM确定.防止重新开始次数过多内存泄露神马的问题
+- 0524
+界面完善基本完成，细节待修改
+- 0519
+完成重新开始功能,System.gc();通知JVM回收内存,具体回收由JVM确定.防止重新开始次数过多内存泄露神马的问题
 
-- 0519 完成游戏暂停功能.
+- 0519
+完成游戏暂停功能.
 计分板,界面按钮正在开发,下一步做重新开始的函数
 做线程暂停耗了好大时间,写出[我的理解](https://github.com/alwaystest/Snaker/blob/%E9%9B%8F%E5%BD%A2/synchronized.md),供以后回忆或者学习代码,如有错误,请指正.
 
@@ -66,14 +71,3 @@ paint方法实际上将绘制工作委托给三个受保护的方法：paintComp
 
 ###SnakeClient-01版本：
 生成一个800×600的窗体。
-
-
-
-
-
-
-
-
-
-
-
