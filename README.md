@@ -36,7 +36,7 @@ paint方法实际上将绘制工作委托给三个受保护的方法：paintComp
 - 0519
 完成游戏暂停功能.
 计分板,界面按钮正在开发,下一步做重新开始的函数
-做线程暂停耗了好大时间,写出[我的理解](https://github.com/alwaystest/Snaker/blob/%E9%9B%8F%E5%BD%A2/synchronized.md),供以后回忆或者学习代码,如有错误,请指正.
+做线程暂停耗了好大时间,写出[我的理解](synchronized.md),供以后回忆或者学习代码,如有错误,请指正.
 
 ###Snaker -07:
 
