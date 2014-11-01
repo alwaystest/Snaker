@@ -1,5 +1,4 @@
 import java.sql.*;
-
 public class sqlite
 {
 	Connection c = null;
@@ -21,7 +20,6 @@ public class sqlite
     }
     System.out.println("Opened database successfully");
 	}
-  
 	public void in(int grades){
 		try {
 			Statement stmt=c.createStatement();
@@ -42,21 +40,17 @@ public class sqlite
 		}
 		System.out.println("inserted!");
 	}
-	
-
 	public void out(){
 		try {
 			Statement stmt=c.createStatement();
 			ResultSet rs=stmt.executeQuery("select name,grades from record order by grades desc");
 			while (rs.next()){
 				System.out.println(rs.getString("name")+"	"+rs.getInt("grades"));
-				
 			}
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		
 	}
 }
